@@ -69,7 +69,7 @@ class ArticlesController extends Controller
             if(!in_array($request->file('preview')->getClientOriginalExtension(), ['jpg'])) {
                 return back()->withInput()->with('message','Можно загружать только картинки в формате "jpg"');
             }
-            $f_name = $request->file('preview')->getClientOriginalName();//определяем имя файла
+            $f_name = uniqid('image_').'.'.$request->file('preview')->getClientOriginalExtension();
             $request->file('preview')->move($root . $date, $f_name); //перемещаем файл в папку с оригинальным именем
             $all = $request->all(); //в переменой $all будет массив, который содержит все введенные данные в форме
             $all['preview'] = "/images/" . $date . "/" . $f_name;// меняем значение preview на нашу ссылку, иначе в базу попадет что-то вроде /tmp/sdfWEsf.tmp
@@ -126,7 +126,7 @@ class ArticlesController extends Controller
             if(!in_array($request->file('preview')->getClientOriginalExtension(), ['jpg'])) {
                 return back()->withInput()->with('message','Можно загружать только картинки в формате "jpg"');
             }
-            $f_name = $request->file('preview')->getClientOriginalName();//определяем имя файла
+            $f_name = uniqid('image_').'.'.$request->file('preview')->getClientOriginalExtension();
             $request->file('preview')->move($root . $date, $f_name); //перемещаем файл в папку с оригинальным именем
             $all = $request->all(); //в переменой $all будет массив, который содержит все введенные данные в форме
             $all['preview'] = "/images/" . $date . "/" . $f_name;// меняем значение preview на нашу ссылку, иначе в базу попадет что-то вроде /tmp/sdfWEsf.tmp
