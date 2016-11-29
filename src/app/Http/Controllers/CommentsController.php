@@ -93,12 +93,12 @@ class CommentsController extends Controller
         $this->validate($request, [
             'author' => 'required|max:100|min:5',
             'email' => 'required|email',
-            'content' => 'required|min:5|max:400'
+            'content'=>'required|min:5|max:400'
         ]);
-        $all = $request->all();
-        $all['article_id'] = $id;
+        $all=$request->all();
+        $all['article_id']=$id;
         Comments::create($all);
-        return back()->with('message', 'Спасибо за комментарий. После проверки он будет опубликован');
+        return back()->with('message','Спасибо за комментарий. После проверки он будет опубликован');
     }
 
     public function delete($id)

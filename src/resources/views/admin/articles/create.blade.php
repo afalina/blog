@@ -52,4 +52,7 @@
         <br>
         <input type="submit" class="btn-lg btn-primary" value="Сохранить">
     </form>
+    @if(Session::has('message'))
+        {{Session::get('message')}}
+    @endif
 @endsection

@@ -62,10 +62,13 @@ class ArticlesController extends Controller
         if ($request->hasFile('preview')) //Проверяем была ли передана картинка, ведь статья может быть и без картинки.
         {
             $date = date('d.m.Y'); //опеределяем текущую дату, она же будет именем каталога для картинок
-            $root = $_SERVER['DOCUMENT_ROOT'] . "/images/"; // это корневая папка для загрузки картинок
+            $root = public_path() . "/images/"; // это корневая папка для загрузки картинок
             if (!file_exists($root . $date)) {
                 mkdir($root . $date);
             } // если папка с датой не существует, то создаем ее
+            if(!in_array($request->file('preview')->getClientOriginalExtension(), ['jpg'])) {
+                return back()->withInput()->with('message','Можно загружать только картинки в формате "jpg"');
+            }
             $f_name = $request->file('preview')->getClientOriginalName();//определяем имя файла
             $request->file('preview')->move($root . $date, $f_name); //перемещаем файл в папку с оригинальным именем
             $all = $request->all(); //в переменой $all будет массив, который содержит все введенные данные в форме
@@ -116,10 +119,13 @@ class ArticlesController extends Controller
         if ($request->hasFile('preview')) //Проверяем была ли передана картинка, ведь статья может быть и без картинки.
         {
             $date = date('d.m.Y'); //опеределяем текущую дату, она же будет именем каталога для картинок
-            $root = $_SERVER['DOCUMENT_ROOT'] . "/images/"; // это корневая папка для загрузки картинок
+            $root = public_path() . "/images/"; // это корневая папка для загрузки картинок
             if (!file_exists($root . $date)) {
                 mkdir($root . $date);
             } // если папка с датой не существует, то создаем ее
+            if(!in_array($request->file('preview')->getClientOriginalExtension(), ['jpg'])) {
+                return back()->withInput()->with('message','Можно загружать только картинки в формате "jpg"');
+            }
             $f_name = $request->file('preview')->getClientOriginalName();//определяем имя файла
             $request->file('preview')->move($root . $date, $f_name); //перемещаем файл в папку с оригинальным именем
             $all = $request->all(); //в переменой $all будет массив, который содержит все введенные данные в форме
@@ -143,7 +149,7 @@ class ArticlesController extends Controller
     {
         $article = Article::find($id);
         $article->delete();
-        $root = $_SERVER['DOCUMENT_ROOT'];
+        $root = public_path();
         if (!empty($article->preview)) {
             unlink($root . $article->preview); //удаляем превьюшку
         }

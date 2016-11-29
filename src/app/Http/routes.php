@@ -24,11 +24,6 @@ Route::group(['prefix'=>'adminzone', 'middleware' => ['auth', RoleMiddleware::cl
     Route::resource('pages','PagesController');
     Route::resource('categories','CategoriesController');
     Route::resource('users','UsersController');
-    Route::get('elfinder',function(){
-        return view('admin.elfinder');
-    });
-    Route::get('connector','ElfinderController@connector');
-    Route::post('connector','ElfinderController@connector');
     Route::get('comments','CommentsController@show');
     Route::get('comments/delete/{id}','CommentsController@delete');
     Route::get('comments/published/{id}','CommentsController@published');

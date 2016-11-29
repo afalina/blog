@@ -31,11 +31,6 @@
             </td>
             <td></td>
         </tr>
-        <tr>
-            <td><a href="/adminzone/elfinder">Медиа</a></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+
     </table>
 @endsection

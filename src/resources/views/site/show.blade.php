@@ -16,7 +16,8 @@ use App\User;
     <p>
         <img src="{{$article->preview}}" style="max-width: 80%;"><br>
         <?=$article->content?>
-    @if(in_array(Auth::user()->role,[User::ROLE_ADMINISTRATOR, User::ROLE_EDITOR]))
+    @if (Auth::guest())
+    @elseif(in_array(Auth::user()->role,[User::ROLE_ADMINISTRATOR, User::ROLE_EDITOR]))
         <div style="float: right; display: block">
             <form method="POST" action="{{action('ArticlesController@destroy',['articles'=>$article->id])}}">
                 <input type="hidden" name="_method" value="delete"/>
@@ -29,6 +30,7 @@ use App\User;
             </form>
         </div>
         @endif
+
     </p>
 <br><br><br><br>
     <hr>
